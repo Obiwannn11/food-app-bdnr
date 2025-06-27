@@ -1,7 +1,7 @@
 # app.py
 
 import os
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import bcrypt
@@ -219,6 +219,28 @@ def delete_food(food_id):
     foods_collection.delete_one({'_id': ObjectId(food_id)})
     flash("Menu berhasil dihapus!")
     return redirect(url_for('admin_dashboard'))
+
+@app.route('/api/search')
+@login_required
+def search_api():
+    # Ambil kata kunci dari parameter URL (contoh: /api/search?q=nasi)
+    query = request.args.get('q', '')
+
+    # Buat query pencarian di MongoDB menggunakan regular expression (case-insensitive)
+    search_query = {
+        'name': {'$regex': query, '$options': 'i'}
+    }
+
+    # Cari makanan yang cocok
+    matched_foods = list(foods_collection.find(search_query))
+
+    # Konversi ObjectId menjadi string agar bisa di-serialize ke JSON
+    for food in matched_foods:
+        food['_id'] = str(food['_id'])
+
+    # Kembalikan hasilnya dalam format JSON
+    return jsonify(matched_foods)
+
 
 
 if __name__ == '__main__':
