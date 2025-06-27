@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Keranjang Belanja Anda</h2>
+
+    {% if cart_items %}
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Kuantitas</th>
+                    <th>Subtotal</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td><img src="{{ item.image_url }}" alt="{{ item.name }}" width="100"></td>
+                    <td>{{ item.name }}</td>
+                    <td>Rp {{ "{:,.0f}".format(item.price) }}</td>
+                    <td>
+                        <form action="{{ url_for('update_cart', food_id=item.food_id) }}" method="post" style="display:inline;">
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 50px;">
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                    <td>Rp {{ "{:,.0f}".format(item.subtotal) }}</td>
+                    <td>
+                        <form action="{{ url_for('remove_from_cart', food_id=item.food_id) }}" method="post" style="display:inline;">
+                            <button type="submit">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="text-align: right; margin-top: 20px;">
+            <h3>Total Belanja: Rp {{ "{:,.0f}".format(grand_total) }}</h3>
+            <button style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px;">
+                Lanjutkan ke Checkout
+            </button>
+        </div>
+
+    {% else %}
+        <p>Keranjang belanja Anda masih kosong. Yuk, mulai belanja!</p>
+    {% endif %}
+{% endblock %}

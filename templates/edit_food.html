@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Edit Menu: {{ food.name }}</h2>
+
+    <form method="post">
+        <label>Nama Makanan:</label><br>
+        <input type="text" name="name" value="{{ food.name }}" required><br><br>
+        
+        <label>Deskripsi:</label><br>
+        <textarea name="description" required>{{ food.description }}</textarea><br><br>
+        
+        <label>Harga:</label><br>
+        <input type="number" name="price" value="{{ food.price }}" required><br><br>
+        
+        <label>URL Gambar:</label><br>
+        <input type="text" name="image_url" value="{{ food.image_url }}" required><br><br>
+        
+        <button type="submit">Update Menu</button>
+    </form>
+{% endblock %}

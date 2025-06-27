@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Selamat Datang di Warung Online!</h1>
+    <p>Silakan lihat-lihat menu kami.</p>
+
+    <hr>
+    <h3>Menu Kami</h3>
+    <div class="food-grid">
+        {% for food in foods %}
+            <div class="food-card">
+                <img src="{{ food.image_url }}" alt="{{ food.name }}">
+                <h4>{{ food.name }}</h4>
+                <p>{{ food.description }}</p>
+                <strong>Rp {{ "{:,.0f}".format(food.price) }}</strong>
+                <br><br>
+                
+                <form action="{{ url_for('add_to_cart', food_id=food._id) }}" method="post">
+                    <button type="submit">Tambah ke Keranjang</button>
+                </form>
+
+            </div>
+        {% else %}
+            <p>Maaf, belum ada menu yang tersedia saat ini.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
