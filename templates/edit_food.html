@@ -12,6 +12,13 @@
         
         <label>Harga:</label><br>
         <input type="number" name="price" value="{{ food.price }}" required><br><br>
+
+        <label>Kategori:</label><br>
+        <select name="category" required>
+            <option value="Makanan" {% if food.category == 'Makanan' %}selected{% endif %}>Makanan</option>
+            <option value="Minuman" {% if food.category == 'Minuman' %}selected{% endif %}>Minuman</option>
+            <option value="Cemilan" {% if food.category == 'Cemilan' %}selected{% endif %}>Cemilan</option>
+        </select><br><br>
         
         <label>URL Gambar:</label><br>
         <input type="text" name="image_url" value="{{ food.image_url }}" required><br><br>

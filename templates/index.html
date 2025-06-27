@@ -10,6 +10,17 @@
         <label for="search-input">Cari Menu:</label>
         <input type="text" id="search-input" placeholder="Ketik untuk mencari..." style="width: 50%; padding: 8px;">
     </div>
+
+    <div style="margin-bottom: 20px;" id="filter-buttons">
+        <button class="filter-btn active" data-category="Semua">Semua</button>
+        <button class="filter-btn" data-category="Makanan">Makanan</button>
+        <button class="filter-btn" data-category="Minuman">Minuman</button>
+        <button class="filter-btn" data-category="Cemilan">Cemilan</button>
+    </div>
+    <style>
+        .filter-btn { padding: 8px 15px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer; }
+        .filter-btn.active { background-color: #333; color: white; border-color: #333; }
+    </style>
     <h3>Menu Kami</h3>
     <div class="food-grid" id="food-grid">
         {% for food in foods %}

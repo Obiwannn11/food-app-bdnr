@@ -196,7 +196,13 @@ def admin_dashboard():
 @app.route('/admin/add_food', methods=['POST'])
 @admin_required
 def add_food():
-    new_food = {"name": request.form['name'], "description": request.form['description'], "price": float(request.form['price']), "image_url": request.form['image_url']}
+    new_food = {
+        "name": request.form['name'],
+        "description": request.form['description'],
+        "price": float(request.form['price']),
+        "category": request.form['category'],
+        "image_url": request.form['image_url'],
+    }
     foods_collection.insert_one(new_food)
     flash(f"Menu '{new_food['name']}' berhasil ditambahkan!")
     return redirect(url_for('admin_dashboard'))
@@ -206,7 +212,13 @@ def add_food():
 def edit_food(food_id):
     food_object_id = ObjectId(food_id)
     if request.method == 'POST':
-        updated_data = {"$set": {"name": request.form['name'],"description": request.form['description'],"price": float(request.form['price']),"image_url": request.form['image_url']}}
+        updated_data = {"$set": {
+            "name": request.form['name'],
+            "description": request.form['description'],
+            "price": float(request.form['price']),
+            "category": request.form['category'],
+            "image_url": request.form['image_url']
+        }}
         foods_collection.update_one({'_id': food_object_id}, updated_data)
         flash("Menu berhasil diperbarui!")
         return redirect(url_for('admin_dashboard'))
@@ -225,11 +237,16 @@ def delete_food(food_id):
 def search_api():
     # Ambil kata kunci dari parameter URL (contoh: /api/search?q=nasi)
     query = request.args.get('q', '')
+    category = request.args.get('category', 'Semua')
 
     # Buat query pencarian di MongoDB menggunakan regular expression (case-insensitive)
     search_query = {
         'name': {'$regex': query, '$options': 'i'}
     }
+
+     # Jika kategori dipilih (bukan 'Semua'), tambahkan ke query
+    if category != 'Semua':
+        search_query['category'] = category
 
     # Cari makanan yang cocok
     matched_foods = list(foods_collection.find(search_query))
