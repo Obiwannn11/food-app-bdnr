@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Riwayat Pesanan Anda</h2>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div style="border: 1px solid #ccc; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                <h4>Pesanan pada: {{ order.order_date.strftime('%d %B %Y, %H:%M') }}</h4>
+                <p><strong>Status:</strong> {{ order.status }}</p>
+                <table border="1" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Nama Item</th>
+                            <th>Kuantitas</th>
+                            <th>Harga Satuan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.produk %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>Rp {{ "{:,.0f}".format(item.price) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h4 style="text-align: right; margin-top: 10px;">Total Pesanan: Rp {{ "{:,.0f}".format(order.total_price) }}</h4>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Anda belum memiliki riwayat pesanan.</p>
+    {% endif %}
+{% endblock %}

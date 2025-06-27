@@ -19,7 +19,9 @@
     <nav>
         <a href="{{ url_for('index') }}">Home</a>
         {% if session.username %}
-            <a href="{{ url_for('view_cart') }}">Keranjang</a> {% if session.role == 'admin' %}
+            <a href="{{ url_for('view_cart') }}">Keranjang</a>
+            <a href="{{ url_for('order_history') }}">Riwayat Pesanan</a>
+            {% if session.role == 'admin' %}
                 <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
             {% endif %}
 
