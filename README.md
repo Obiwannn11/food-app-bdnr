@@ -2,8 +2,8 @@
 
 Sebuah aplikasi web full-stack yang dibuat dengan Python (Flask) dan MongoDB. Aplikasi ini menyimulasikan sistem pemesanan makanan online dengan fitur untuk pengguna dan admin.
 
-*(Saran: Ambil screenshot halaman utama atau dashboard admin dan letakkan di sini untuk membuat README Anda lebih menarik! Ganti baris di bawah dengan gambar Anda.)*
-![Screenshot Aplikasi](link-ke-screenshot-anda.png)
+### Website Preview
+![](screenshot/home.png)
 
 ## Fitur Utama
 
