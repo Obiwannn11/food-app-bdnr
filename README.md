@@ -29,7 +29,7 @@ Sebuah aplikasi web full-stack yang dibuat dengan Python (Flask) dan MongoDB. Ap
 Sebelum menjalankan proyek ini, pastikan Anda sudah menginstal:
 -   Python 3.8 atau yang lebih baru
 -   `pip` (biasanya sudah terinstal bersama Python)
--   Sebuah instance MongoDB Community Server yang sedang berjalan di komputer Anda.
+-   MongoDB Community Server Local (MongoDB Compass).
 
 ## Instalasi & Menjalankan Proyek
 
@@ -37,8 +37,8 @@ Berikut adalah langkah-langkah untuk menjalankan proyek ini di lingkungan lokal:
 
 1.  **Clone Repositori**
     ```bash
-    git clone [https://github.com/nama-anda/nama-repo-anda.git](https://github.com/nama-anda/nama-repo-anda.git)
-    cd nama-repo-anda
+    git clone https://github.com/Obiwannn11/food-app-bdnr.git
+    cd food-app-bdnr
     ```
 
 2.  **Buat dan Aktifkan Virtual Environment**
