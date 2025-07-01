@@ -1,14 +1,17 @@
-{% extends 'layout.html' %}
-{% block title %}Riwayat Pesanan - Warung Online{% endblock %}
+{% extends 'layout_admin.html' %}
+
+{% block title %}Riwayat Pesanan - Admin{% endblock %}
+
 {% block content %}
-<div class="container mt-5">
-  <h2 class="mb-4">Riwayat Pesanan</h2>
-  {% if orders %}
+<h3 class="mb-4 brand-color">Daftar Pesanan Masuk</h3>
+<div class="card">
+  <div class="card-body">
     <div class="table-responsive">
       <table class="table align-middle">
         <thead>
           <tr>
             <th>Tanggal</th>
+            <th>User</th>
             <th>Menu</th>
             <th>Total Harga</th>
             <th>Status</th>
@@ -18,6 +21,13 @@
           {% for order in orders %}
           <tr>
             <td>{{ order.order_date.strftime('%d-%m-%Y %H:%M') if order.order_date else '' }}</td>
+            <td>
+              {% if order.user_id %}
+                {{ order.user_id }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
             <td>
               <ul class="mb-0">
                 {% for item in order.produk %}
@@ -32,8 +42,6 @@
         </tbody>
       </table>
     </div>
-  {% else %}
-    <div class="alert alert-info text-center">Belum ada riwayat pesanan.</div>
-  {% endif %}
+  </div>
 </div>
 {% endblock %}

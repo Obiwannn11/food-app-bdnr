@@ -1,28 +1,40 @@
-{% extends 'layout.html' %}
+{% extends 'layout_admin.html' %}
+
+{% block title %}Edit Menu - Warung Online{% endblock %}
 
 {% block content %}
-    <h2>Edit Menu: {{ food.name }}</h2>
-
-    <form method="post">
-        <label>Nama Makanan:</label><br>
-        <input type="text" name="name" value="{{ food.name }}" required><br><br>
-        
-        <label>Deskripsi:</label><br>
-        <textarea name="description" required>{{ food.description }}</textarea><br><br>
-        
-        <label>Harga:</label><br>
-        <input type="number" name="price" value="{{ food.price }}" required><br><br>
-
-        <label>Kategori:</label><br>
-        <select name="category" required>
+<div class="container" style="max-width:1000px; margin-top:50px;">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="brand-color mb-4 text-center">Edit Menu: {{ food.name }}</h3>
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">Nama Makanan/Minuman</label>
+          <input type="text" name="name" value="{{ food.name }}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Deskripsi</label>
+          <textarea name="description" class="form-control" required>{{ food.description }}</textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Harga (Rp)</label>
+          <input type="number" name="price" value="{{ food.price }}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Kategori</label>
+          <select name="category" class="form-select" required>
             <option value="Makanan" {% if food.category == 'Makanan' %}selected{% endif %}>Makanan</option>
             <option value="Minuman" {% if food.category == 'Minuman' %}selected{% endif %}>Minuman</option>
             <option value="Cemilan" {% if food.category == 'Cemilan' %}selected{% endif %}>Cemilan</option>
-        </select><br><br>
-        
-        <label>URL Gambar:</label><br>
-        <input type="text" name="image_url" value="{{ food.image_url }}" required><br><br>
-        
-        <button type="submit">Update Menu</button>
-    </form>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">URL Gambar</label>
+          <input type="text" name="image_url" value="{{ food.image_url }}" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-brand w-100">Update Menu</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

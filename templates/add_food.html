@@ -1,0 +1,36 @@
+{% extends 'layout_admin.html' %}
+{% block title %}Tambah Menu Baru - Warung Online{% endblock %}
+{% block content %}
+<div class="card mb-5 shadow-sm" style="max-width:500px; margin:auto;">
+  <div class="card-body">
+    <h4 class="mb-3">Tambah Menu Baru</h4>
+    <form action="{{ url_for('add_food') }}" method="post">
+      <div class="mb-3">
+        <label class="form-label">Nama Makanan/Minuman</label>
+        <input type="text" name="name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Deskripsi</label>
+        <textarea name="description" class="form-control" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Harga (Rp)</label>
+        <input type="number" name="price" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Kategori</label>
+        <select name="category" class="form-select" required>
+          <option value="Makanan">Makanan</option>
+          <option value="Minuman">Minuman</option>
+          <option value="Cemilan">Cemilan</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">URL Gambar</label>
+        <input type="text" name="image_url" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-brand w-100">Tambah Menu</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

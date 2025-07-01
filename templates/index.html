@@ -1,41 +1,119 @@
-{% extends 'layout.html' %}
-
-{% block content %}
-    <h1>Selamat Datang di Warung Online!</h1>
-    <p>Silakan lihat-lihat menu kami.</p>
-
-    <hr>
-    
-    <div style="margin-bottom: 20px;">
-        <label for="search-input">Cari Menu:</label>
-        <input type="text" id="search-input" placeholder="Ketik untuk mencari..." style="width: 50%; padding: 8px;">
+{% extends 'layout.html' %} {% block title %}Menu - {{ config.RESTAURANT_NAME if
+config and config.RESTAURANT_NAME else 'Warung Online' }}{% endblock %} {% block
+content %}
+<div class="container mt-4">
+  <div class="text-center mb-5">
+    <h1 class="brand-color mb-3" style="font-size: 2.2rem">
+      Selamat Datang di {{ config.RESTAURANT_NAME if config and
+      config.RESTAURANT_NAME else 'Makano' }}!
+    </h1>
+    <p class="lead">Silakan lihat-lihat dan pesan menu favorit Anda.</p>
+  </div>
+  <!-- Search & Filter -->
+  <div class="row mb-4">
+    <div class="col-md-6 mb-2">
+      <input
+        type="text"
+        class="form-control"
+        id="search-input"
+        placeholder="Cari menu..."
+      />
     </div>
-
-    <div style="margin-bottom: 20px;" id="filter-buttons">
-        <button class="filter-btn active" data-category="Semua">Semua</button>
-        <button class="filter-btn" data-category="Makanan">Makanan</button>
-        <button class="filter-btn" data-category="Minuman">Minuman</button>
-        <button class="filter-btn" data-category="Cemilan">Cemilan</button>
+    <div class="col-md-6 text-md-end" id="filter-buttons">
+      <button
+        class="btn btn-outline-primary filter-btn active"
+        data-category="Semua"
+      >
+        Semua
+      </button>
+      <button
+        class="btn btn-outline-primary filter-btn"
+        data-category="Makanan"
+      >
+        Makanan
+      </button>
+      <button
+        class="btn btn-outline-primary filter-btn"
+        data-category="Minuman"
+      >
+        Minuman
+      </button>
+      <button
+        class="btn btn-outline-primary filter-btn"
+        data-category="Cemilan"
+      >
+        Cemilan
+      </button>
     </div>
-    <style>
-        .filter-btn { padding: 8px 15px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer; }
-        .filter-btn.active { background-color: #333; color: white; border-color: #333; }
-    </style>
-    <h3>Menu Kami</h3>
-    <div class="food-grid" id="food-grid">
-        {% for food in foods %}
-            <div class="food-card">
-                <img src="{{ food.image_url }}" alt="{{ food.name }}">
-                <h4>{{ food.name }}</h4>
-                <p>{{ food.description }}</p>
-                <strong>Rp {{ "{:,.0f}".format(food.price) }}</strong>
-                <br><br>
-                <form action="{{ url_for('add_to_cart', food_id=food._id) }}" method="post">
-                    <button type="submit">Tambah ke Keranjang</button>
-                </form>
-            </div>
-        {% else %}
-            <p>Maaf, belum ada menu yang tersedia saat ini.</p>
-        {% endfor %}
+  </div>
+  <!-- Menu Grid -->
+  <div class="row" id="food-grid">
+    {% for food in foods %}
+    <div class="col-md-4 mb-4 food-card" data-category="{{ food.category }}">
+      <div class="card h-100">
+        <img
+          src="{{ food.image_url }}"
+          class="card-img-top"
+          alt="{{ food.name }}"
+        />
+        <div class="card-body d-flex flex-column">
+          <h4 class="card-title">{{ food.name }}</h4>
+          <span class="badge bg-light text-dark mb-2">{{ food.category }}</span>
+          <p class="card-text">{{ food.description }}</p>
+          <div class="price mb-2">Rp {{ "{:,.0f}".format(food.price) }}</div>
+          <!-- Stok dihapus sesuai permintaan -->
+          <form
+            action="{{ url_for('add_to_cart', food_id=food._id) }}"
+            method="post"
+            class="mt-auto"
+          >
+            <button type="submit" class="btn btn-brand w-100">
+              Tambah ke Keranjang
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
+    {% else %}
+    <div class="col-12">
+      <p class="text-center text-muted">
+        Maaf, belum ada menu yang tersedia saat ini.
+      </p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Filter Kategori
+    const btns = document.querySelectorAll(".filter-btn");
+    btns.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        btns.forEach((b) => b.classList.remove("active"));
+        this.classList.add("active");
+        const category = this.getAttribute("data-category");
+        document.querySelectorAll(".food-card").forEach((card) => {
+          if (
+            category === "Semua" ||
+            card.getAttribute("data-category") === category
+          ) {
+            card.style.display = "";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+    // Search Menu
+    document
+      .getElementById("search-input")
+      .addEventListener("input", function () {
+        const search = this.value.toLowerCase();
+        document.querySelectorAll(".food-card").forEach((card) => {
+          const text = card.innerText.toLowerCase();
+          card.style.display = text.includes(search) ? "" : "none";
+        });
+      });
+  });
+</script>
 {% endblock %}

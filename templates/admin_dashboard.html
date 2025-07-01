@@ -1,56 +1,41 @@
-{% extends 'layout.html' %}
-
+{% extends 'layout_admin.html' %}
+{% block title %}Dashboard Admin - Warung Online{% endblock %}
 {% block content %}
-    <h2>Dashboard Admin - Manajemen Menu</h2>
-
-    <hr>
-    <h3>Tambah Makanan Baru</h3>
-    <form action="{{ url_for('add_food') }}" method="post">
-        <label>Nama Makanan:</label><br>
-        <input type="text" name="name" required><br><br>
-        
-        <label>Deskripsi:</label><br>
-        <textarea name="description" required></textarea><br><br>
-        
-        <label>Harga:</label><br>
-        <input type="number" name="price" required><br><br>
-
-        <label>Kategori:</label><br>
-        <select name="category" required>
-            <option value="Makanan">Makanan</option>
-            <option value="Minuman">Minuman</option>
-            <option value="Cemilan">Cemilan</option>
-        </select><br><br>
-        
-        <label>URL Gambar:</label><br>
-        <input type="text" name="image_url" required><br><br>
-        
-        <button type="submit">Tambah Menu</button>
-    </form>
-    <hr>
-
-    <h3>Daftar Menu Saat Ini</h3>
-    <table border="1" width="100%">
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h4 class="mb-0">Daftar Menu Saat Ini</h4>
+  <a href="{{ url_for('add_food') }}" class="btn btn-brand">Tambah Menu Baru</a>
+</div>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table align-middle">
         <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Harga</th>
-                <th>Aksi</th>
-            </tr>
+          <tr>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Kategori</th>
+            <th>Gambar</th>
+            <th>Aksi</th>
+          </tr>
         </thead>
         <tbody>
-            {% for food in foods %}
-            <tr>
-                <td>{{ food.name }}</td>
-                <td>Rp {{ "{:,.0f}".format(food.price) }}</td>
-                <td>
-                    <a href="{{ url_for('edit_food', food_id=food._id) }}">Edit</a> |
-                    <form action="{{ url_for('delete_food', food_id=food._id) }}" method="post" style="display:inline;">
-                        <button type="submit" onclick="return confirm('Anda yakin ingin menghapus menu ini?')">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
+          {% for food in foods %}
+          <tr>
+            <td>{{ food.name }}</td>
+            <td>Rp {{ "{:,.0f}".format(food.price) }}</td>
+            <td><span class="badge bg-light text-dark">{{ food.category }}</span></td>
+            <td><img src="{{ food.image_url }}" alt="{{ food.name }}" width="60" class="rounded"></td>
+            <td>
+              <a href="{{ url_for('edit_food', food_id=food._id) }}" class="btn btn-warning btn-sm">Edit</a>
+              <form action="{{ url_for('delete_food', food_id=food._id) }}" method="post" class="d-inline">
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus menu ini?')">Hapus</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -1,53 +1,61 @@
 {% extends 'layout.html' %}
 
+{% block title %}Keranjang - Warung Online{% endblock %}
+
 {% block content %}
-    <h2>Keranjang Belanja Anda</h2>
-
-    {% if cart_items %}
-        <table border="1" width="100%">
-            <thead>
-                <tr>
-                    <th>Produk</th>
-                    <th>Nama</th>
-                    <th>Harga</th>
-                    <th>Kuantitas</th>
-                    <th>Subtotal</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                <tr>
-                    <td><img src="{{ item.image_url }}" alt="{{ item.name }}" width="100"></td>
-                    <td>{{ item.name }}</td>
-                    <td>Rp {{ "{:,.0f}".format(item.price) }}</td>
-                    <td>
-                        <form action="{{ url_for('update_cart', food_id=item.food_id) }}" method="post" style="display:inline;">
-                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 50px;">
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                    <td>Rp {{ "{:,.0f}".format(item.subtotal) }}</td>
-                    <td>
-                        <form action="{{ url_for('remove_from_cart', food_id=item.food_id) }}" method="post" style="display:inline;">
-                            <button type="submit">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-            <div style="text-align: right; margin-top: 20px;">
-            <h3>Total Belanja: Rp {{ "{:,.0f}".format(grand_total) }}</h3>
-            <form action="{{ url_for('checkout') }}" method="post">
-                <button type="submit" style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px;">
-                    Lanjutkan ke Checkout
-                </button>
+<div class="container mt-5">
+  <h2 class="mb-4">Keranjang Belanja Anda</h2>
+  {% if cart_items %}
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Produk</th>
+          <th>Nama</th>
+          <th>Harga</th>
+          <th>Kuantitas</th>
+          <th>Subtotal</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td><img src="{{ item.image_url }}" alt="{{ item.name }}" width="80" class="rounded"></td>
+          <td>{{ item.name }}</td>
+          <td>Rp {{ "{:,.0f}".format(item.price) }}</td>
+          <td>
+            <form action="{{ url_for('update_cart', food_id=item.food_id) }}" method="post" class="d-flex align-items-center">
+              <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.max_stock or 99 }}" class="form-control" style="width:70px;">
+              <button type="submit" class="btn btn-outline-secondary btn-sm ms-2">Update</button>
             </form>
-        </div>
-
-    {% else %}
-        <p>Keranjang belanja Anda masih kosong. Yuk, mulai belanja!</p>
-    {% endif %}
+          </td>
+          <td>Rp {{ "{:,.0f}".format(item.subtotal) }}</td>
+          <td>
+            <form action="{{ url_for('remove_from_cart', food_id=item.food_id) }}" method="post">
+              <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-end mt-4">
+    <div>
+      <h4 class="mb-3">Total Belanja: <span class="brand-color">Rp {{ "{:,.0f}".format(grand_total) }}</span></h4>
+      <form action="{{ url_for('checkout') }}" method="post">
+        <button type="submit" class="btn btn-brand btn-lg">Lanjutkan ke Checkout</button>
+      </form>
+    </div>
+  </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      Keranjang belanja Anda masih kosong. Yuk, mulai belanja!
+    </div>
+    <div class="text-center mt-2">
+      <a href="/" class="btn btn-brand">Kembali ke Menu</a>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
