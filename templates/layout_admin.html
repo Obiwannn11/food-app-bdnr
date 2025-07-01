@@ -10,11 +10,34 @@
     .sidebar { min-height: 100vh; background: #fff; box-shadow: 2px 0 16px rgba(0,0,0,0.04); }
     .sidebar .nav-link { color: #333; font-weight: 500; }
     .sidebar .nav-link.active,
-    .sidebar .nav-link:hover { background: #ff7043; color: #fff; }
+    .sidebar .nav-link:hover { color: #ff7043;}
     .sidebar .logout-link { position: absolute; bottom: 30px; left: 0; right: 0; }
     .brand-color { color: #ff7043; }
     .btn-brand { background: #ff7043; color: #fff; border: none; }
     .btn-brand:hover { background: #ff5722; color: #fff; }
+    .bg-black-brand { background-color: #141414;}
+    /* width */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #141414; 
+      border-radius: 10px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #ff7043; 
+      border-radius: 10px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+      
+    }
   </style>
   {% block head %}{% endblock %}
 </head>
@@ -22,12 +45,12 @@
 <div class="container-fluid">
   <div class="row">
     <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block sidebar position-relative">
-      <div class="pt-4 pb-2 px-3 mb-4 border-bottom">
-        <h4 class="brand-color">Admin Panel</h4>
-        <div class="small">Halo, {{ session['username'] }}</div>
+    <nav class="col-md-2 d-none d-md-block sidebar position-fixed bg-black-brand p-0">
+      <div class="py-4 px-3 mb-4 border-bottom d-flex flex-column align-items-start gap-1">
+        <h5 class="brand-color">Admin Panel</h5>
+        <div class="small text-white">Halo, {{ session['username'] }}</div>
       </div>
-      <div class="nav flex-column px-3">
+      <div class="nav flex-column">
         <a href="{{ url_for('admin_dashboard') }}" class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}">
           <span>Foods</span>
         </a>
@@ -40,7 +63,7 @@
       </div>
     </nav>
     <!-- Main Content -->
-    <main class="col-md-10 ms-sm-auto px-4 py-4">
+    <main class="col-md-10 offset-md-2 px-4 py-4">
       {% with messages = get_flashed_messages() %}
         {% if messages %}
           <div class="alert alert-info">{{ messages|join(', ') }}</div>
