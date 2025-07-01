@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Admin - Warung Online{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #f6f7fb; font-family: 'Montserrat', sans-serif; }
+    .sidebar { min-height: 100vh; background: #fff; box-shadow: 2px 0 16px rgba(0,0,0,0.04); }
+    .sidebar .nav-link { color: #333; font-weight: 500; }
+    .sidebar .nav-link.active,
+    .sidebar .nav-link:hover { background: #ff7043; color: #fff; }
+    .sidebar .logout-link { position: absolute; bottom: 30px; left: 0; right: 0; }
+    .brand-color { color: #ff7043; }
+    .btn-brand { background: #ff7043; color: #fff; border: none; }
+    .btn-brand:hover { background: #ff5722; color: #fff; }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-2 d-none d-md-block sidebar position-relative">
+      <div class="pt-4 pb-2 px-3 mb-4 border-bottom">
+        <h4 class="brand-color">Admin Panel</h4>
+        <div class="small">Halo, {{ session['username'] }}</div>
+      </div>
+      <div class="nav flex-column px-3">
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}">
+          <span>Foods</span>
+        </a>
+        <a href="{{ url_for('admin_orders') }}" class="nav-link {% if request.endpoint == 'admin_orders' %}active{% endif %}">
+          <span>Orders</span>
+        </a>
+      </div>
+      <div class="logout-link px-3">
+        <a href="{{ url_for('logout') }}" class="btn btn-brand w-100">Logout</a>
+      </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="col-md-10 ms-sm-auto px-4 py-4">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-info">{{ messages|join(', ') }}</div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+</body>
+</html>

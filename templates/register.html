@@ -1,14 +1,25 @@
 {% extends 'layout.html' %}
-
+{% block title %}Register - Warung Online{% endblock %}
 {% block content %}
-    <h2>Register Akun Baru</h2>
-    <form method="post">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
-        
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <button type="submit">Register</button>
-    </form>
+<div class="container" style="max-width:400px; margin-top:80px;">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="brand-color mb-4 text-center">Register Akun Baru</h3>
+      <form method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" id="username" name="username" class="form-control" required autofocus>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-brand w-100">Register</button>
+      </form>
+      <div class="text-center mt-3">
+        <span>Sudah punya akun? <a href="{{ url_for('login') }}">Login di sini</a></span>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
