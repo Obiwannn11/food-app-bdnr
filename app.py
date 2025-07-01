@@ -184,6 +184,7 @@ def checkout():
     total_price = sum(item['quantity'] * item['price'] for item in cart_items)
     new_order = {
         'user_id': ObjectId(user_id),
+        'user_name': session['username'],
         'produk': cart_items,
         'total_price': total_price,
         'order_date': datetime.datetime.now(),
