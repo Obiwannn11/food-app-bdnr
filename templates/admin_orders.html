@@ -22,8 +22,8 @@
           <tr>
             <td>{{ order.order_date.strftime('%d-%m-%Y %H:%M') if order.order_date else '' }}</td>
             <td>
-              {% if order.user_id %}
-                {{ order.user_id }}
+              {% if order.user_name %}
+                {{ order.user_name }}
               {% else %}
                 -
               {% endif %}
