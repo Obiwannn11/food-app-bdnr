@@ -3,19 +3,8 @@
 {% block title %}Riwayat Pesanan - Admin{% endblock %}
 
 {% block content %}
-<h3 style="color: #ff8f10;" class="mb-4 brand-color">Daftar Pesanan Masuk</h3>
+<h3 class="mb-4 brand-2">Daftar Pesanan Masuk</h3>
 
-<!-- Notifikasi -->
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
 
 <div class="card">
   <div class="card-body">
@@ -27,7 +16,7 @@
             <th>Nama User</th>
             <th>Menu</th>
             <th>Total Harga</th>
-            <th style="width: 200px;">Status</th>
+            <th>Status</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -43,7 +32,7 @@
               {% endif %}
             </td>
             <td>
-              <ul class="list-unstyled mb-0 small">
+              <ul class="list-unstyled mb-0">
                 {% for item in order.produk %}
                   <li>{{ item['name'] }} (x{{ item['quantity'] }})</li>
                 {% endfor %}
