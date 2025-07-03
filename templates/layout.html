@@ -28,6 +28,16 @@
         width: 70%; 
       }
 
+      .btn-brand-2 {
+        background: #ff7043;
+        color: #fff;
+        border: none;
+      }
+      .btn-brand-2:hover {
+        background: #ff5722;
+        color: #fff;
+      }
+
       .btn-brand {
         background: #ff8f10;
         color: #fff;
@@ -50,10 +60,23 @@
       .food-card .card-title {
         font-weight: 700;
       }
+      .price-2 {
+        color: #ff7043;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
       .price {
         color: #ff8f10;
         font-weight: 700;
         font-size: 1.1rem;
+      }
+      .category-badge-2 {
+        background: #ffe0b2;
+        color: #ff7043;
+        font-size: 0.9em;
+        border-radius: 6px;
+        padding: 2px 10px;
       }
       .category-badge {
         background: #ffe0b2;
@@ -78,6 +101,10 @@
       .brand-color {
           color: #ff8f10;
       }
+      .brand-color-2 {
+          color: #ff7043;
+      }
+      
     </style>
     {% block head_extra %}{% endblock %}
 </head>
@@ -118,7 +145,12 @@
     </nav>
 
     <main class="py-4">
-        {% block content %}{% endblock %}
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <div class="container">
+        <div class="alert alert-warning">{{ messages|join(', ') }}</div>
+      </div>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
+
     </main>
 
     <footer class="footer mt-auto py-3 bg-light text-center">
