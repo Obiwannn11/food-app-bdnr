@@ -1,6 +1,38 @@
 {% extends 'layout.html' %} {% block title %}Menu - {{ config.RESTAURANT_NAME if
-config and config.RESTAURANT_NAME else 'Warung Online' }}{% endblock %} {% block
-content %}
+config and config.RESTAURANT_NAME else 'Warung Online' }}{% endblock %} 
+{% block head_extra %}
+<style>
+    #search-input:focus {
+        border-color: #ff8f10;
+        box-shadow: 0 0 0 0.25rem rgba(255, 143, 16, 0.5);
+    }
+
+    .filter-btn.btn-outline-primary {
+        color: #ff8f10;
+        border-color: #ff8f10;
+    }
+    .filter-btn.btn-outline-primary:hover,
+    .filter-btn.btn-outline-primary.active {
+        color: #fff;
+        background-color: #ff8f10;
+        border-color: #ff8f10;
+    }
+    .filter-btn.btn-outline-primary:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 143, 16, 0.5);
+    }
+
+    .category-title {
+        font-weight: bold;
+        color: #343a40;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #ff8f10;
+        padding-bottom: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
 <div class="container mt-4">
   <div class="text-center mb-5">
     <h1 class="brand-color mb-3" style="font-size: 2.2rem">
@@ -12,7 +44,7 @@ content %}
   <!-- Search & Filter -->
   <div class="row mb-4">
     <div class="col-md-6 mb-2">
-      <input
+      <input style="border-color: #ff8f10;"
         type="text"
         class="form-control"
         id="search-input"

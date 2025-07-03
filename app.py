@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 import bcrypt
 from functools import wraps
 import datetime
+from collections import defaultdict
 
 app = Flask(__name__)
 app.secret_key = "kunci_rahasia_super_aman_milikmu"
@@ -78,6 +79,19 @@ def logout():
     session.clear()
     flash('Anda telah berhasil logout.')
     return redirect(url_for('login'))
+
+# --- Context Processor untuk Data Global ---
+@app.context_processor
+def inject_cart_count():
+    if 'user_id' not in session:
+        return {'cart_item_count': 0}
+
+    user_cart = carts_collection.find_one({'user_id': session['user_id']})
+    if user_cart and 'items' in user_cart:
+        item_count = sum(item['quantity'] for item in user_cart['items'])
+        return {'cart_item_count': item_count}
+    
+    return {'cart_item_count': 0}
 
 # --- USER ROUTES ---
 @app.route('/')
@@ -257,6 +271,25 @@ def delete_food(food_id):
 def admin_orders():
     all_orders = list(orders_collection.find().sort('order_date', -1))
     return render_template('admin_orders.html', orders=all_orders)
+
+@app.route('/admin/update_order_status/<order_id>', methods=['POST'])
+@admin_required
+def update_order_status(order_id):
+    try:
+        new_status = request.form['status']
+
+        update_query = {
+            '$set': {
+                'status': new_status
+            }
+        }
+
+        orders_collection.update_one({'_id': ObjectId(order_id)}, update_query)        
+        flash(f"Status pesanan berhasil diubah menjadi '{new_status}'.", 'success')
+    except Exception as e:
+        flash(f"Terjadi kesalahan saat memperbarui status: {e}", 'danger')
+    return redirect(url_for('admin_orders'))
+
 
 # --- API SEARCH ---
 @app.route('/api/search')
