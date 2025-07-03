@@ -5,7 +5,6 @@ from bson.objectid import ObjectId
 import bcrypt
 from functools import wraps
 import datetime
-from collections import defaultdict
 
 app = Flask(__name__)
 app.secret_key = "kunci_rahasia_super_aman_milikmu"

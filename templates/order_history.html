@@ -27,8 +27,8 @@
             </td>
             <td>Rp {{ "{:,.0f}".format(order.total_price) }}</td>
             <td>
-              <!-- PERUBAHAN: Warna badge dinamis berdasarkan status -->
-              {% set status_color = 'primary' %} <!-- Default color -->
+              <!-- Warna status -->
+              {% set status_color = 'primary' %}
               {% if order.status == 'Selesai' %}
                 {% set status_color = 'success' %}
               {% elif order.status == 'Dibatalkan' %}

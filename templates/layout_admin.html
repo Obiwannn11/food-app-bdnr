@@ -22,12 +22,12 @@
 <div class="container-fluid">
   <div class="row">
     <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block sidebar position-relative">
-      <div class="pt-4 pb-2 px-3 mb-4 border-bottom">
-        <h4 class="brand-color">Admin Panel</h4>
-        <div class="small">Halo, {{ session['username'] }}</div>
+    <nav class="col-md-2 d-none d-md-block sidebar position-fixed bg-black-brand p-0">
+      <div class="py-4 px-3 mb-4 border-bottom d-flex flex-column align-items-start gap-1">
+        <h5 class="brand-color">Admin Panel</h5>
+        <div class="small text-white">Halo, {{ session['username'] }}</div>
       </div>
-      <div class="nav flex-column px-3">
+      <div class="nav flex-column">
         <a href="{{ url_for('admin_dashboard') }}" class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}">
           <span>Foods</span>
         </a>
@@ -40,7 +40,7 @@
       </div>
     </nav>
     <!-- Main Content -->
-    <main class="col-md-10 ms-sm-auto px-4 py-4">
+    <main class="col-md-10 offset-md-2 px-4 py-4">
       {% with messages = get_flashed_messages() %}
         {% if messages %}
           <div class="alert alert-info">{{ messages|join(', ') }}</div>

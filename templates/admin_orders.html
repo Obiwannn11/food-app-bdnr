@@ -51,7 +51,7 @@
             </td>
             <td>Rp {{ "{:,.0f}".format(order.total_price) }}</td>
             <td>
-              <!-- PERUBAHAN: Form untuk update status -->
+              <!-- Form update status -->
               <form action="{{ url_for('update_order_status', order_id=order._id) }}" method="POST">
                 <select name="status" class="form-select form-select-sm">
                   <option value="Diproses" {% if order.status == 'Diproses' %}selected{% endif %}>Diproses</option>
