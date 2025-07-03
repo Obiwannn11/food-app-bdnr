@@ -79,7 +79,7 @@
           <a href="{{ url_for('register') }}">Daftar di sini</a>
         </div>
         {% with messages = get_flashed_messages() %} {% if messages %}
-        <div class="alert alert-info mt-3">{{ messages|join(', ') }}</div>
+        <div class="alert alert-warning mt-3">{{ messages|join(', ') }}</div>
         {% endif %} {% endwith %}
       </div>
     </div>
