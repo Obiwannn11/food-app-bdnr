@@ -15,6 +15,7 @@
     .brand-color { color: #ff8f10; }
     .btn-brand { background: #ff8f10; color: #fff; border: none; }
     .btn-brand:hover { background: #ff8f10; color: #fff; }
+    .brand-2 { color: #ff8f10}
   </style>
   {% block head %}{% endblock %}
 </head>
@@ -25,7 +26,7 @@
     <nav class="col-md-2 d-none d-md-block sidebar position-fixed bg-black-brand p-0">
       <div class="py-4 px-3 mb-4 border-bottom d-flex flex-column align-items-start gap-1">
         <h5 class="brand-color">Admin Panel</h5>
-        <div class="small text-white">Halo, {{ session['username'] }}</div>
+        <div class="small">Halo, {{ session['username'] }}</div>
       </div>
       <div class="nav flex-column">
         <a href="{{ url_for('admin_dashboard') }}" class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}">
@@ -43,7 +44,7 @@
     <main class="col-md-10 offset-md-2 px-4 py-4">
       {% with messages = get_flashed_messages() %}
         {% if messages %}
-          <div class="alert alert-info">{{ messages|join(', ') }}</div>
+          <div class="alert alert-warning">{{ messages|join(', ') }}</div>
         {% endif %}
       {% endwith %}
       {% block content %}{% endblock %}
