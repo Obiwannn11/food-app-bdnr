@@ -4,7 +4,7 @@ config and config.RESTAURANT_NAME else 'Warung Online' }}{% endblock %}
 <style>
     #search-input:focus {
         border-color: #ff8f10;
-        box-shadow: 0 0 0 0.25rem rgba(255, 143, 16, 0.5);
+        box-shadow: 0 0 0 0.15rem rgba(255, 143, 16, 0.5);
     }
 
     .filter-btn.btn-outline-primary {
@@ -28,7 +28,11 @@ config and config.RESTAURANT_NAME else 'Warung Online' }}{% endblock %}
         margin-bottom: 1rem;
         border-bottom: 2px solid #ff8f10;
         padding-bottom: 0.5rem;
-    }
+
+      }
+      .border-input-2 {
+          border-color:#ff8f10;
+      }
 </style>
 {% endblock %}
 
@@ -44,9 +48,9 @@ config and config.RESTAURANT_NAME else 'Warung Online' }}{% endblock %}
   <!-- Search & Filter -->
   <div class="row mb-4">
     <div class="col-md-6 mb-2">
-      <input style="border-color: #ff8f10;"
+      <input
         type="text"
-        class="form-control"
+        class="border-input-2 form-control"
         id="search-input"
         placeholder="Cari menu..."
       />
