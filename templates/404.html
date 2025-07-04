@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <style>
+        .error-page{
+            text-align: center;
+            padding: 50px;
+        }
+        .error-page h1 {
+            font-size: 6rem;
+            color: #ff7043;
+        }
+        .error-page h2 {
+            margin-top: 0;
+        }
+
+        .error-page a {
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
+    </style>
+    <div class="error-page">
+        <h1>404</h1>
+        <h2>Halaman Tidak Ditemukan</h2>
+        <p>Maaf, halaman yang Anda cari tidak ada atau telah dipindahkan.</p>
+        <a class="btn btn-brand"" href="{{ url_for('index') }}">
+            Kembali ke Halaman Utama
+        </a>
+    </div>
+{% endblock %}
